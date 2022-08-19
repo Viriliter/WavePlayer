@@ -203,7 +203,7 @@ void MainWindow::clickedBrowse(){
         playlist->clear();
 
         for (auto &file:files){
-            std::cout << (QString("file:///") + folder_path + QString("/") + file).toStdString() << std::endl;;
+            qDebug() << (QString("file:///") + folder_path + QString("/") + file);
             ui->listWMedia->addItem(file);
             mediaList.push_back(folder_path + file);
 
@@ -211,7 +211,7 @@ void MainWindow::clickedBrowse(){
             currentMediaID = 0;
         }
         for(int i=0; i<playlist->mediaCount(); i++){
-            std::cout << playlist->media(i).request().url().toString().toStdString() << std::endl;
+            qDebug() << playlist->media(i).request().url().toString();
         }
     }
 };
@@ -220,7 +220,7 @@ void MainWindow::clickedBrowse(){
 void MainWindow::clickedMediaItem(QListWidgetItem *item){
     currentMediaID = ui->listWMedia->row(item);
 
-    std::cout << item->text().toStdString() << std::endl;
+    qDebug() << item->text();
 };
 
 
@@ -271,7 +271,6 @@ void MainWindow::toggledRepeat(bool isToggled){
 
 
 void MainWindow::mediaDurationChanged(qint64 currentDuration_ms){
-    std::cout << "Current Duration: " << currentDuration_ms/1000 << std::endl;
     int currentDuration = currentDuration_ms / 1000;  // Convert ms to seconds
     int minute = ((int)currentDuration) / 60;
     int second = ((int)currentDuration) % 60;
@@ -297,7 +296,6 @@ void MainWindow::mediaPositionChanged(qint64 position){
         progressMedia->setValue(0);
     }
     else{
-        //qDebug() << QString("Progress: ") << ((double)position/(double)mediaTotalDuration)*100;
         progressMedia->setValue(position);
     }
 }
@@ -313,7 +311,6 @@ void MainWindow::onMediaError(QMediaPlayer::Error error){
 
 
 void MainWindow::onMediaStateChanged(QMediaPlayer::State state){
-    std::cout << "Media State Changed:" << state << std::endl;
     if (state == 0 && ui->pushPlay->isChecked()){
         if (!isRepeat){
             // Move to next media in the list
@@ -379,13 +376,11 @@ void MainWindow::mediaTimelineChanged(qint64 mediaPosition){
 
 
 void MainWindow::changeVolume(int volume){
-    qDebug() << "Volume Changed: " << volume;
     player->setVolume(volume);
 }
 
 
 void MainWindow::comboBLyricsChanged(int index){
-    qInfo() << "comboBLyricsChanged: " << index;
     QString url = comboBLyrics->currentData().toString();
     getLyrics(url);
 }
@@ -414,13 +409,11 @@ void MainWindow::playMedia(){
             }
 
             player->play();
-            std::cout << "Media playing... " << currentMediaID << std::endl;
-            std::cout << player->mediaStatus() << std::endl;
-            std::cout << player->state() << std::endl;
+            qDebug() << "Media playing... ID: " << currentMediaID << " Status: " << player->mediaStatus() << " State: " << player->state();
         }
     else{
         progressMedia->setEnabled(false);
-        std::cout << "No media loaded" << std::endl;
+        qDebug() << "No media loaded";
     }
 
 };
@@ -500,7 +493,6 @@ void MainWindow::keywordCombiner(QStringList &keywords, QStringList &result, int
 
 
 void MainWindow::searchLyrics(QString keyword){
-    qInfo() << "keyword: " << keyword;
     if (keyword.trimmed().isEmpty()) return;
 
     QStringList items = keyword.split('.');
@@ -511,7 +503,6 @@ void MainWindow::searchLyrics(QString keyword){
     QRegExp separator("([.,-\\s]+)");
     QStringList keywords = fileName.split(separator, Qt::SkipEmptyParts);  //.split("\\ |\\-");
     QStringList args;
-    qInfo() << "keywords: " << keywords;
 
     if (keywords.size() > 1){
         keywordCombiner(keywords, args, 0);
@@ -527,8 +518,6 @@ void MainWindow::searchLyrics(QString keyword){
         args = keywords;
     }
 
-    qInfo() << "Combination: " << args;
-
     if (process == nullptr){
         process = new QProcess(nullptr);
     }
@@ -541,10 +530,6 @@ void MainWindow::searchLyrics(QString keyword){
     connect(process, SIGNAL(readyRead()), this, SLOT(processReadyRead()));
     connect(process, SIGNAL(finished(int)), this, SLOT(processFinished(int)));
 
-    QString keywords2 = "gripin yalnızlığın";
-
-    qInfo() << "start process: " << "python" << " " << (QStringList() << script_path << args);
-
     process->start("python", QStringList() << script_path
                                            << args);
 };
@@ -553,36 +538,30 @@ void MainWindow::searchLyrics(QString keyword){
 void MainWindow::processReadyRead(){
     qInfo() << "processReadyRead";
     QString strReply = static_cast<QString>(process->readAll());
-    qInfo() << "strReply: " << strReply;
 
     lastLyricList.clear();
-    // strReply.replace("'", "\"");
-      QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
-      QJsonArray jsonArray = jsonResponse.array();
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
+    QJsonArray jsonArray = jsonResponse.array();
 
-      if (jsonArray.count() > 0) {
-
+    if (jsonArray.count() > 0) {
         foreach (const QJsonValue &value, jsonArray) {
-          QJsonObject obj = value.toObject();
-          QString id = obj.value("song_id").toString();
-          QString url = obj.value("song_url").toString();
-          QString artist = obj.value("song_artist").toString();
-          QString title = obj.value("song_name").toString();
-          QStringList item;
-          item << id << url << artist << title;
-          lastLyricList.append(item);
+            QJsonObject obj = value.toObject();
+            QString id = obj.value("song_id").toString();
+            QString url = obj.value("song_url").toString();
+            QString artist = obj.value("song_artist").toString();
+            QString title = obj.value("song_name").toString();
+            QStringList item;
+            item << id << url << artist << title;
+            lastLyricList.append(item);
 
-          comboBLyrics->addItem(title + " - " + artist, url);
+            comboBLyrics->addItem(title + " - " + artist, url);
         }
-      }
-      else {
-
       }
 };
 
 void MainWindow::processFinished(int exitCode){
-    qInfo() << "ProcessFinished: " << exitCode;
     if(process != nullptr) process->deleteLater();
+
     process = nullptr;
     Q_UNUSED(exitCode);
 };
@@ -604,41 +583,38 @@ void MainWindow::netwManagerFinished(QNetworkReply *reply){
         int v = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (v >= 200 && v < 300) // Success
         {
-          QString html = reply->readAll();
+            QString html = reply->readAll();
 
-          QString lyric;
-          QStringList divs = html.split("<div>");
-          for (auto &div:divs){
-              if(div.contains("<!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->\r\n")){
-
-                  lyric = div.split("</div>").at(0);
-                  break;
-              }
-          }
-          textLyrics->setHtml("<center>" +
-                              lyric +
-                              "</center>");
-
-          //qInfo() << "lyric: "  << lyric;
-
-        } else if (v >= 300 && v < 400) // Redirection
-        {
-          QUrl newUrl =
-              reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
-          newUrl = reply->url().resolved(newUrl);
-          qDebug() << "request redirected to new url" << newUrl;
-
-          QNetworkAccessManager *manager = new QNetworkAccessManager();
-          connect(manager, SIGNAL(finished(QNetworkReply *)), this,
-                  SLOT(netwManagerFinished(QNetworkReply *)));
-          QNetworkRequest request((QUrl(newUrl)));
-          request.setRawHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) "
-                                             "AppleWebKit/537.36 (KHTML, like "
-                                             "Gecko) Chrome/73.0.3683.103 "
-                                             "Safari/537.36");
-          manager->get(request);
+            QString lyric;
+            QStringList divs = html.split("<div>");
+            for (auto &div:divs){
+                if(div.contains("<!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->\r\n")){
+                    lyric = div.split("</div>").at(0);
+                    break;
+                }
+            }
+            textLyrics->setHtml("<center>" +
+                                lyric +
+                                "</center>");
         }
-      } else {
-        qDebug() << reply->errorString();
+        else if (v >= 300 && v < 400) // Redirection
+        {
+            QUrl newUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
+            newUrl = reply->url().resolved(newUrl);
+            qDebug() << "request redirected to new url" << newUrl;
+
+            QNetworkAccessManager *manager = new QNetworkAccessManager();
+            connect(manager, SIGNAL(finished(QNetworkReply *)), this,
+                    SLOT(netwManagerFinished(QNetworkReply *)));
+            QNetworkRequest request((QUrl(newUrl)));
+            request.setRawHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) "
+                                 "AppleWebKit/537.36 (KHTML, like "
+                                 "Gecko) Chrome/73.0.3683.103 "
+                                 "Safari/537.36");
+            manager->get(request);
+        }
       }
+    else {
+        qDebug() << reply->errorString();
+    }
 }

@@ -7,26 +7,51 @@
 # install the following python module:
 # pip install requests
 # pip install bs4
+#pip install requests_html
 # output will be in html format, Recommended to save file in html format
 
 
 import requests
 from bs4 import BeautifulSoup
+from requests_html import HTMLSession
+from requests.exceptions import ConnectionError, InvalidSchema, ReadTimeout
 import sys
 import json
 
 queries = sys.argv[1:]
 
 query_str = " ".join(queries)
-suffix = "&x=09435e1ecfc5954bec2fc8bc50ae7a288a3ea14197cde2ea564b7a8d6883f105"
+suffix = ""
 # print(query_str)
 # query_str = input("enter song name\n")
 # query_str = "fadded"
 
-for query in queries:
-    url = "https://search.azlyrics.com/search.php?q=" + query + suffix
+url = "https://search.azlyrics.com/"
+headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
 
-    headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
+# First get return of geo.js which is location specific value
+session = HTMLSession()
+try:
+    resp = session.get(url, timeout=3)
+    resp.html.render()  # this call executes the js in the page
+except InvalidSchema:
+    print("INVALID SCHEMA")
+except ReadTimeout:
+    print("READ TIMEOUT")
+except ConnectionError:
+    print("CONNECTION ERROR")
+
+
+soup = BeautifulSoup(resp.html.html, 'lxml')
+hidden_value = soup.find_all("input", {"type": "hidden"})[0]
+suffix = hidden_value["value"]
+
+if suffix == "":
+    print("ERROR ON ACCESSING SERVER")
+    sys.exit()
+
+for query in queries:
+    url = "https://search.azlyrics.com/search.php?q=" + query + "&x=" + suffix
 
     try:
         response = requests.get(url, timeout=10, headers=headers)

@@ -3,12 +3,15 @@ This project is about to create a desktop media player using Qt framework. It fe
 
 [logo]: https://github.com/Viriliter/WavePlayer/resources/logo.png "WavePlayer"
 
-## Preview
+![WavePlayer](./resources/logo.png?raw=true "WavePlayer")
 
+## Preview
+UI of the program is as follows:
 
 ## Dependencies
 * MinGW32 8.1
 * Qt 5.15.2
+* K-Lite Codec Pack (for playing content)
 * Python 3.7 or above
 
 

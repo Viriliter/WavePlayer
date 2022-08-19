@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>793</width>
+    <height>655</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WavePlayer</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(60, 63, 65);
+color:#FFFFFF;
+QToolTip {background-color:rgb(255, 255, 255); color:rgb(0, 0, 0)}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" rowspan="2">
+     <widget class="QGroupBox" name="groupBMediaList">
+      <property name="maximumSize">
+       <size>
+        <width>300</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushBrowse">
+         <property name="styleSheet">
+          <string notr="true">background-color:rgb(43, 43, 43);color:rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>Find Playlist</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLineEdit" name="lineBrowse">
+         <property name="styleSheet">
+          <string notr="true">background-color:rgb(43, 43, 43); color:rgb(255, 255, 255); border: 0px;</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QListWidget" name="listWMedia">
+         <property name="styleSheet">
+          <string notr="true">QListWidget {
+	background-color: #2B2B2B;
+	color:#FFFFFF;
+    border-radius: 10px
+}
+
+QListWidget::item {
+	color: #b3b3b3;                    
+    background-color: #131517;
+    margin-top: 5px;          
+    border-radius: 9px;
+    padding-left: 5px;
+}
+
+QListWidget::item:selected {
+	background-color:#b3b3b3;
+	color: #131517;
+}
+
+
+QScrollBar::horizotal{height:10;
+								  background-color: none;
+								  margin: 0px 0px 0px 0px;
+								  border:#FFFFFF;
+								  border-radius:5;}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-line:horizontal{background: none;}
+
+QScrollBar::add-line:horizontal{background: none;}
+
+QScrollBar::handle:horizontal{background-color:#AAAAAA; border-radius:5}
+
+QScrollBar::handle:horizontal:hover{background-color:#FFFFFF; border-radius:5}
+
+QScrollBar::vertical{width:10;
+								 background-color: none;
+								 margin: 0px 0px 0px 0px;
+								 border:#FFFFFF;
+								 border-radius:5;}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-line:vertical{background: none;}
+
+QScrollBar::add-line:vertical{background: none;}
+
+QScrollBar::handle:vertical{background-color:#AAAAAA; border-radius:5}
+
+QScrollBar::handle:vertical:hover{background-color:#FFFFFF; border-radius:5}
+
+QToolTip(color:#FFFFF);</string>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QStackedWidget" name="stackedPlayer">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="pageVideoPlayer"/>
+      <widget class="QWidget" name="pageMusicPlayer"/>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QFrame" name="frameNavigator">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>5</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>0</number>
+       </property>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelMediaElapsedTime">
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(255,255,255);</string>
+         </property>
+         <property name="text">
+          <string>00:00</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="labelMediaTotalDuration">
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(255,255,255);</string>
+         </property>
+         <property name="text">
+          <string>00:00</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="3">
+        <widget class="QFrame" name="frame">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="horizontalSpacing">
+           <number>15</number>
+          </property>
+          <item row="0" column="6">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <widget class="QToolButton" name="buttonShuffle">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Shuffle</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QToolButton{border: 0px solid black; background-color: rgb(255, 255, 255, 0); color: rgb(60, 63, 65); border-radius:15;}
+QToolButton::hover{ color: rgb(60, 63, 65); background-color: rgb(42, 42, 42);}
+QToolButton::checked{ color: rgb(60, 63, 65); background-color: rgb(42, 42, 42);}
+QToolButton::toolTip(color:#FFFFFF;);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="2">
+           <widget class="QToolButton" name="pushPrevious">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>40</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Previous</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QToolButton{border: 0px solid black; background-color: rgb(170, 170, 170); color: rgb(60, 63, 65); border-radius:20;}
+QToolButton::hover{ color: rgb(60, 63, 65); background-color: rgb(255, 255, 255);}
+QToolButton::toolTip(color:#FFFFFF;);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QToolButton" name="pushPlay">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Play</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QToolButton{border: 0px solid black; background-color: rgb(255, 255, 255); color: rgb(60, 63, 65); border-radius:25;}
+QToolButton::hover{ color: rgb(60, 63, 65); min-width:50; min-height:50; border-radius:25;}
+QToolButton::toolTip(color:#FFFFFF;);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QToolButton" name="pushNext">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>40</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Next</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QToolButton{border: 0px solid black; background-color: rgb(170, 170, 170); color: rgb(60, 63, 65); border-radius:20;}
+QToolButton::hover{ color: rgb(60, 63, 65); background-color: rgb(255, 255, 255);}
+QToolButton::toolTip(color:#FFFFFF;);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QToolButton" name="buttonRepeat">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Repeat</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QToolButton{border: 0px solid black; background-color: rgb(255, 255, 255, 0); color: rgb(60, 63, 65); border-radius:15;}
+QToolButton::hover{ color: rgb(60, 63, 65); background-color: rgb(42, 42, 42);}
+QToolButton::checked{ color: rgb(60, 63, 65); background-color: rgb(42, 42, 42);}
+QToolButton::toolTip(color:#FFFFFF;);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>793</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:#FFFFFF;</string>
+   </property>
+   <widget class="QMenu" name="menuAbout">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_App"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255,255,255);</string>
+   </property>
+  </widget>
+  <action name="actionAbout_App">
+   <property name="text">
+    <string>About App</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

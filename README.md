@@ -1,15 +1,15 @@
 # WavePlayer
+<img src="./resources/logo.png" width="100"> 
 This project is about to create a desktop media player using Qt framework. It features to show music lyric of your music contents. It consists of a python script that requests for the music lyrics from azlyrics.com.
 
-![WavePlayer](./resources/logo.png?raw=true "WavePlayer")
+
 
 ## Preview
 UI of the program is as follows:
 
-![ScreenShot1](./screenshots/ss1.png?raw=true "ScreenShot1")
-![ScreenShot2](./screenshots/ss1.png?raw=true "ScreenShot1")
-![ScreenShot3](./screenshots/ss1.png?raw=true "ScreenShot1")
-![ScreenShot4](./screenshots/ss1.png?raw=true "ScreenShot1")
+<img src="./screenshots/ss1.PNG" width="300"> <img src="./screenshots/ss2.PNG" width="300">
+<img src="./screenshots/ss3.PNG" width="300"> <img src="./screenshots/ss4.PNG" width="300">
+<img src="./screenshots/ss5.PNG" width="300">
 
 ## Dependencies
 * MinGW32 8.1

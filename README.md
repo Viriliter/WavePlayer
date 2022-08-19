@@ -1,6 +1,5 @@
 # WavePlayer
-This project is about to create a desktop media player that can search music lyrics on internet and show it while playing
-This project uses Qt framework and consists of a python script that request for the music lyrics on internet.
+This project is about to create a desktop media player using Qt framework. It features to show music lyric of your music contents. It consists of a python script that requests for the music lyrics from azlyrics.com.
 
 [logo]: https://github.com/Viriliter/WavePlayer/resources/logo.png "WavePlayer"
 
@@ -19,4 +18,5 @@ git clone https://github.com/Viriliter/WavePlayer.git
 ```
 
 ## Known Issues
+* azlyrics.com may block the ip address after some lyric search. Restarting the router is necessary if you are using dynamic IP.
 * Random media playing is not working.

@@ -1,6 +1,6 @@
 # WavePlayer
 <img src="./resources/logo.png" width="100"> 
-This project is about to create a desktop media player using Qt framework. It features to show music lyric of your music contents. It consists of a python script that requests for the music lyrics from azlyrics.com.
+This project is about to create a desktop media player using Qt framework. It features to show the lyric of your music contents. It consists of a python script that requests the music lyrics from azlyrics.com.
 
 
 

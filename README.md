@@ -14,9 +14,13 @@ UI of the program is as follows:
 ## Dependencies
 * MinGW32 8.1
 * Qt 5.15.2
-* K-Lite Codec Pack (for playing content)
+* K-Lite Codec Pack (necessary for playing content)
 * Python 3.7 or above
 
+In addition to above dependencies, following Python modules should be installed prior to build:
+```
+pip install requests bs4 requests_html
+```
 
 ## Installation
 ```
